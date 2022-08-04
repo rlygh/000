@@ -1,28 +1,27 @@
 #include <stdio.h>
-
-int n, k, d[1010];
-int lower_bound(int k)
-{
-  int s,e,m;
-   s=1;
-  e=n+1;
-  while(s<e){
-    m=(s+e)/2;
-    if (d[m]<k){
-      s=m+1;
-    }else{
-      e=m;
-    }
-  }
-  return e;
-}
+int n,inp[1010],dp[1010],ans;
 
 int main()
 {
-  scanf("%d %d", &n,&k);
-
-  for(int i=1; i<=n; i++)
-    scanf("%d", &d[i]);
-
-  printf("%d\n", lower_bound(k));
+   scanf("%d", &n);
+  for(int i=0; i<n; i++)
+    scanf("%d", &inp[i]);//입력
+  
+  for (int i=0;i<n;i++)
+    {
+      dp[i] =1;
+      for (int j=0;j<i; j++)
+        {
+          if (inp[j]>inp[i])
+          {
+            if (dp[i] <dp[j]+1) dp[i] =dp[j]+1;
+          }
+        }
+    }
+//for int i=0; i<n; i++) printf("%d",dp[i]);
+  for (int i=0; i<n; i++)
+    {
+      if (ans<dp[i]) ans=dp[i];
+    }
+  printf("%d", ans);
 }
